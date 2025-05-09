@@ -1,7 +1,7 @@
+import GIFEncoder from 'gifencoder';
 import { Canvas, createCanvas } from 'canvas';
 import { Request, Response } from 'express';
 import { createWriteStream, writeFile, WriteStream } from 'fs';
-import * as GIFEncoder from 'gifencoder';
 import { File, FileUtilities, Point } from '../../../../core';
 import { Application } from '../../../Application';
 import { AvatarScaleType, IAvatarImage } from '../../../avatar';

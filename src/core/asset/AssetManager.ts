@@ -4,48 +4,42 @@ import { IAssetManager } from './IAssetManager';
 import { NitroBundle } from './NitroBundle';
 import { GraphicAssetCollection, IGraphicAsset, IGraphicAssetCollection } from './utils';
 
-export class AssetManager extends NitroManager implements IAssetManager
-{
+export class AssetManager extends NitroManager implements IAssetManager {
     private _textures: AdvancedMap<string, Texture>;
     private _collections: AdvancedMap<string, IGraphicAssetCollection>;
 
-    constructor()
-    {
+    constructor() {
         super();
 
         this._textures = new AdvancedMap();
         this._collections = new AdvancedMap();
     }
 
-    public getTexture(name: string): Texture
-    {
-        if(!name) return null;
+    public getTexture(name: string): Texture {
+        if (!name) return null;
 
         const existing = this._textures.getValue(name);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }
 
-    public setTexture(name: string, texture: Texture): void
-    {
-        if(!name || !texture) return;
+    public setTexture(name: string, texture: Texture): void {
+        if (!name || !texture) return;
 
         this._textures.add(name, texture);
     }
 
-    public getAsset(name: string): IGraphicAsset
-    {
-        if(!name) return null;
+    public getAsset(name: string): IGraphicAsset {
+        if (!name) return null;
 
-        for(const collection of this._collections.getValues())
-        {
-            if(!collection) continue;
+        for (const collection of this._collections.getValues()) {
+            if (!collection) continue;
 
             const existing = collection.getAsset(name);
 
-            if(!existing) continue;
+            if (!existing) continue;
 
             return existing;
         }
@@ -53,27 +47,24 @@ export class AssetManager extends NitroManager implements IAssetManager
         return null;
     }
 
-    public getCollection(name: string): IGraphicAssetCollection
-    {
-        if(!name) return null;
+    public getCollection(name: string): IGraphicAssetCollection {
+        if (!name) return null;
 
         const existing = this._collections.getValue(name);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }
 
-    public createCollectionFromNitroBundle(bundle: NitroBundle): IGraphicAssetCollection
-    {
+    public createCollectionFromNitroBundle(bundle: NitroBundle): IGraphicAssetCollection {
         const collection = new GraphicAssetCollection(bundle.jsonFile, bundle.baseTexture);
 
-        if(collection)
-        {
-            for(const [ name, texture ] of collection.textures.getKeys())
-            {
+
+        if (collection) {
+            for (const [name] of collection.textures.getKeys()) {
                 const texture = collection.textures.getValue(name);
-                
+
                 this.setTexture(name, texture);
             }
 
@@ -83,19 +74,15 @@ export class AssetManager extends NitroManager implements IAssetManager
         return collection;
     }
 
-    public async downloadAsset(assetUrl: string): Promise<boolean>
-    {
-        return await this.downloadAssets([ assetUrl ]);
+    public async downloadAsset(assetUrl: string): Promise<boolean> {
+        return await this.downloadAssets([assetUrl]);
     }
 
-    public async downloadAssets(assetUrls: string[]): Promise<boolean>
-    {
-        if(!assetUrls || !assetUrls.length) return false;
+    public async downloadAssets(assetUrls: string[]): Promise<boolean> {
+        if (!assetUrls || !assetUrls.length) return false;
 
-        for(const url of assetUrls)
-        {
-            try
-            {
+        for (const url of assetUrls) {
+            try {
                 this.logger.log('Downloading: ' + url);
                 const buffer = await FileUtilities.readFileAsBuffer(url);
                 const bundle = await NitroBundle.from(buffer);
@@ -103,17 +90,15 @@ export class AssetManager extends NitroManager implements IAssetManager
                 this.createCollectionFromNitroBundle(bundle);
             }
 
-            catch(err)
-            {
-
+            catch (err) {
+                console.log(err)
             }
         }
 
         return true;
     }
 
-    public get collections(): AdvancedMap<string, IGraphicAssetCollection>
-    {
+    public get collections(): AdvancedMap<string, IGraphicAssetCollection> {
         return this._collections;
     }
 }
