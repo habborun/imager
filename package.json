@@ -1,8 +1,12 @@
 {
-  "name": "nitro-imager",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
+  "name": "@habborun/imager",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsup src/index.ts",
+    "start": "node ./dist/index.js",
+    "dev": "tsup src/index.ts --watch --onSuccess \"node dist/index.js\""
+  },
   "dependencies": {
     "bytebuffer": "^5.0.1",
     "canvas": "^2.8.0",
@@ -22,21 +26,7 @@
     "@types/node-fetch": "^2.5.12",
     "@types/pako": "^1.0.2",
     "ts-node-dev": "^1.1.8",
+    "tsup": "^8.4.0",
     "typescript": "^4.4.2"
-  },
-  "scripts": {
-    "build": "tsc",
-    "start": "node ./dist/index.js",
-    "start:dev": "ts-node-dev --respawn --transpile-only ./src/main.ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://git.krews.org/nitro/nitro-imager.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://git.krews.org/nitro/nitro-imager/issues"
-  },
-  "homepage": "https://git.krews.org/nitro/nitro-imager"
+  }
 }

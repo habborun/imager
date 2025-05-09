@@ -1,11 +1,3 @@
-# Nitro Imager
-
-This tool serves as a server-side habbo-imager using the same avatar generator from nitro-renderer. It will download & cache in memory `.nitro` assets. Rendered figures will also save to a local folder to prevent re-renders. You will use the same process as your nitro-client to update assets for the imager.
-
-## Configuration
-
-First you should rename `.env.new to .env` then set your configuration. Additional options can be found in `config.json`
-
 Your figuredata, figuremap, effectmap, & HabboAvatarActions can safely point to a remote URL without worrying about performance.
 
 You should set all download urls to local absolute paths on your system, this will allow for faster downloading of figures. However, you may point to remote urls as well.
@@ -13,12 +5,6 @@ You should set all download urls to local absolute paths on your system, this wi
 You must also set an absolute path to a location where rendered figures can save to. This can be a private folder that is not accessible from the web.
 
 ## Running the server
-
-**Make sure you run `npm i` before first use.**
-
-You must compile the server by running `npm run build`
-
-To start the server you must run `npm start`
 
 The server will run on the desired host & port as set in the config. You must setup a reverse proxy on your server to make the imager publicly accessible.
 
@@ -112,5 +98,5 @@ To hold a certain drink, use an equal separator with the hand item id. You can o
 
 ## Known Issues
 
--   GIFs are only able to render 1 bit alpha channels, therefore most effects will not correctly render due to using many different alpha values.
--   The rendered canvas size may not match habbos imager exactly, we will hopefully have this addressed soon.
+- GIFs are only able to render 1 bit alpha channels, therefore most effects will not correctly render due to using many different alpha values.
+- The rendered canvas size may not match habbos imager exactly, we will hopefully have this addressed soon.
