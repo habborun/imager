@@ -1,35 +1,6 @@
-Your figuredata, figuremap, effectmap, & HabboAvatarActions can safely point to a remote URL without worrying about performance.
+# Imager
 
-You should set all download urls to local absolute paths on your system, this will allow for faster downloading of figures. However, you may point to remote urls as well.
-
-You must also set an absolute path to a location where rendered figures can save to. This can be a private folder that is not accessible from the web.
-
-## Running the server
-
-The server will run on the desired host & port as set in the config. You must setup a reverse proxy on your server to make the imager publicly accessible.
-
-NGINX Example
-
-    server {
-    	listen 80;
-    	listen [::]:80;
-
-    	listen 443;
-    	listen [::]:443;
-
-    	server_name habbo-imaging.website.com;
-
-    	location / {
-    		proxy_pass              http://localhost:1338;
-    		proxy_set_header        Host $host;
-    		proxy_set_header        X-Real-IP $remote_addr;
-    		proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-    	}
-    }
-
-## URL paramaters
-
-Their are a few different options you may pass as URL parameters to generate figures with different actions. All parameters are optional.
+## Options
 
 | key            | default | description                                                         |
 | -------------- | ------- | ------------------------------------------------------------------- |
@@ -47,11 +18,9 @@ Their are a few different options you may pass as URL parameters to generate fig
 
 ## Actions
 
-You may render multiple actions with a comma separater
-
 Example: `&action=wlk,wav,drk=1`
 
-##### Posture
+### Posture
 
 | key    | description                  |
 | ------ | ---------------------------- |
@@ -60,7 +29,7 @@ Example: `&action=wlk,wav,drk=1`
 | sit    | Renders the sitting posture  |
 | lay    | Renders the laying posture   |
 
-##### Expression
+### Expression
 
 | key      | description                     |
 | -------- | ------------------------------- |
@@ -69,9 +38,9 @@ Example: `&action=wlk,wav,drk=1`
 | laugh    | Renders the laughing expression |
 | respect  | Renders the respect expression  |
 
-##### Carry / Drink
+### Carry / Drink
 
-To hold a certain drink, use an equal separator with the hand item id. You can only render one of these options at a time
+_Only render one of these options at a time_
 
 | key      | description              |
 | -------- | ------------------------ |
